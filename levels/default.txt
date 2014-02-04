@@ -1,17 +1,30 @@
+<def>{
 <tiledef>
 <id>0</id>
-<cost>false</cost>
-<path>tilepic/hole.png</path>
+<cost>0</cost>
+<path>tilepic/yellow.png</path>
+</tiledef>
 
-<board>
+<tiledef>
+<id>1</id>
+<cost>1</cost>
+<path>tilepic/tile01.png</path>
+</tiledef>
+}</def>
+
+
+<board>{
 
 <title>My First Board</title>
 <width>10</width>
 <height>10</height>
 <default>1</default>
-<fill>y</fill>
+<fill>true</fill>
 
 <overwrite>
 <type>0</type>
 <tile>2,3</tile>
 <tile>3,4</tile>
+</overwrite>
+
+}</board>
