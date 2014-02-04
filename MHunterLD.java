@@ -14,7 +14,10 @@ public class MHunterLD {
     static BufferedReader br = null;
 
     public static void main(String[] args) {
-        readFile("default.txt");
+        init();
+        
+        readFile("src/mhunterld/levels/default.txt");
+        printCurrentFile();
     }
 
    static private void readFile(String path) {
@@ -28,5 +31,14 @@ public class MHunterLD {
         } catch (IOException e) {
             System.out.println("Error in " + path + ": " + e);
         }
+    }
+   static private void printCurrentFile(){
+       for(int i = 0; i < currentFile.size();i++){
+           System.out.println(currentFile.get(i));
+       }
+   }
+
+    private static void init() {
+        currentFile = new ArrayList<>();
     }
 }
