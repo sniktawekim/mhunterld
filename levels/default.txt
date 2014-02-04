@@ -1,0 +1,17 @@
+<tiledef>
+<id>0</id>
+<cost>false</cost>
+<path>tilepic/hole.png</path>
+
+<board>
+
+<title>My First Board</title>
+<width>10</width>
+<height>10</height>
+<default>1</default>
+<fill>y</fill>
+
+<overwrite>
+<type>0</type>
+<tile>2,3</tile>
+<tile>3,4</tile>
