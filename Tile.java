@@ -22,7 +22,7 @@ public class Tile extends OnScreenObject {
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
         super(xLocation, yLocation, 120, 100, xLocation + 120, xLocation, yLocation + 100, yLocation);
-        setGraphic("pics/tiles/png/tile02.png");
+        setGraphic("tile001.png");
     }
 
     @Override

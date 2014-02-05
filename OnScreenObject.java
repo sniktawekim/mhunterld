@@ -136,7 +136,7 @@ public abstract class OnScreenObject {
             g = graphic.getImage();
         } catch (Exception e) {
             System.out.println("OnScreenObject setGraphic caught: ");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
