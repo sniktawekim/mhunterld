@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 public class MHunterLD {
 
     static ArrayList<String> currentFile;
+    static ArrayList<Tile> tiledef;
     static BufferedReader br = null;
     static int startX = 100;
     static int startY = 100;
@@ -20,11 +21,9 @@ public class MHunterLD {
     static JFrame frame;
     static final int frameWidth = 1300;
     static final int frameHeight = 800;
-    static final int canvasWidth = 1292;
-    static final int canvasHeight = 770;
 
     private static void init() {
-        currentFile = new ArrayList<>();     
+        currentFile = new ArrayList<>();
     }
 
     public static void main(String[] args) throws IOException {
@@ -50,13 +49,13 @@ public class MHunterLD {
     }
 
     private static void buildFromFile() {
-        for(int i=0;i<currentFile.size();i++){
+        for (int i = 0; i < currentFile.size(); i++) {
             String cLine = currentFile.get(i);
-            if(cLine.contains("<def>")){
-                i=buildDef(i);
+            if (cLine.contains("<def>")) {
+                i = buildDef(i);
             }
-            if(cLine.contains("<board>")){
-                i=buildBoard(i);
+            if (cLine.contains("<board>")) {
+                i = buildBoard(i);
             }
         }
         System.out.println("Finished reading  level file");
@@ -65,16 +64,16 @@ public class MHunterLD {
     private static int buildDef(int i) {
         System.out.println("building Def");
         String cLine = currentFile.get(i);
-        while(!cLine.contains("</def>")){
-        if(cLine.contains("<tiledef>")){
-            i=buildTileDef(i);
+        while (!cLine.contains("</def>")) {
+            if (cLine.contains("<tiledef>")) {
+                i = buildTileDef(i);
+            }
+            if (cLine.contains("<bgidef>")) {
+                i = setBGI(i);
+            }
+            i++;
+            cLine = currentFile.get(i);
         }
-        if(cLine.contains("<bgidef>")){
-            i=setBGI(i);
-        }
-        i++;
-        cLine=currentFile.get(i);
-    }
         return i;
     }
 
@@ -84,7 +83,13 @@ public class MHunterLD {
     }
 
     private static int buildTileDef(int i) {
-        System.out.println("building tile definition");
+        String cLine = currentFile.get(i);
+        while (!cLine.contains("</tiledef>")) {
+
+            i++;
+            cLine = currentFile.get(i);
+        }
+
         return i;
     }
 
@@ -92,8 +97,7 @@ public class MHunterLD {
         System.out.println("setting background image");
         return i;
     }
-    
-    
+
     private static void buildGameCanvas() {
         frame = new JFrame("MHunter Level Designer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,11 +109,12 @@ public class MHunterLD {
         canvas.requestFocusInWindow();
 
     }
+
     private static void canvasControl() {
         while (true) {
             canvas.repaint();
             pause();
-            
+
         }
 
     }
@@ -121,6 +126,5 @@ public class MHunterLD {
             System.out.println("paint error");
         }
     }
-
 
 }

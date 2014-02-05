@@ -20,13 +20,17 @@ import javax.swing.JPanel;
  */
 public class gamePanel extends JPanel {
 
-    final int canvasWidth = 1292;
+    final int canvasWidth = 1175;
     final int canvasHeight = 770;
     final int backgroundWidth = 1300;
+    static int tilesLeft = 11;
+    static int tilesRight = 11;
     IClick myClick;//mouse listener, useful for menu options
     ArrayList<OnScreenObject> objects;
     private ImageIcon graphic;
     private Image gr;
+    
+    int board[][];
 
     gamePanel() {
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -34,12 +38,16 @@ public class gamePanel extends JPanel {
         myClick = new IClick();
         this.addMouseListener(myClick);
         makeTiles();
+        board = new int[tilesLeft][tilesRight];
     }
 
-    private void makeTiles() {
-        for (int i = 0; i < 5; i++) {
-            Tile toadd = new Tile(400 + (i * 60), 400 + (i * (50 - 15)));
-            objects.add(toadd);           
+
+    private void makeTiles(){
+        for(int i=0;i<tilesLeft;i++){
+            for(int j=0;j<tilesRight;j++){
+                Tile toadd = new Tile(canvasWidth/2-(j*60)+(i*60), -15 + (35*j)+(i*(50-15)));
+                objects.add(toadd);
+            }
         }
     }
 
@@ -54,8 +62,6 @@ public class gamePanel extends JPanel {
 
     private void paintBackground(Graphics g) {
         try {//try to paint background image
-            int bgWidthLimit = -backgroundWidth + MHunterLD.canvasWidth;
-            boolean wrap = false;
 
             graphic = new ImageIcon(this.getClass().getResource("testBg.png"));           
             gr = graphic.getImage();
@@ -95,5 +101,10 @@ public class gamePanel extends JPanel {
             }
 
         }
+    }
+    private void setBoardSize(int left, int right){
+        tilesLeft = left;
+        tilesRight = right;
+        board = new int[tilesLeft][tilesRight];
     }
 }
