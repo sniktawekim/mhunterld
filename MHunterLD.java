@@ -22,6 +22,10 @@ public class MHunterLD {
     static final int frameWidth = 1300;
     static final int frameHeight = 800;
 
+    static int boardLeft=11;
+    static int boardRight=11;
+    static String boardTitle;
+
     private static void init() {
         currentFile = new ArrayList<>();
     }
@@ -78,7 +82,25 @@ public class MHunterLD {
     }
 
     private static int buildBoard(int i) {
-        System.out.println("building board");
+        String cLine = currentFile.get(i);
+        while (!cLine.contains("</board>")) {
+            if (cLine.contains("<title>")) {
+                cLine = removeXML(cLine);
+                boardTitle = cLine;
+            }
+            if (cLine.contains("<width>")) {
+                cLine = removeXML(cLine);
+                boardLeft = Integer.parseInt(cLine);
+                System.out.println(cLine);
+            }
+            if(cLine.contains("<height>")){
+                cLine = removeXML(cLine);
+                boardRight = Integer.parseInt(cLine);
+                System.out.println(cLine);
+            }
+            i++;
+            cLine = currentFile.get(i);
+        }
         return i;
     }
 
@@ -104,6 +126,7 @@ public class MHunterLD {
         frame.setSize(frameWidth, frameHeight);
         frame.setResizable(false);//lock game resolution
         canvas = new gamePanel();
+        sendBoardSettings();      
         frame.setContentPane(canvas);
         frame.setVisible(true);
         canvas.requestFocusInWindow();
@@ -125,6 +148,18 @@ public class MHunterLD {
         } catch (Exception e) {
             System.out.println("paint error");
         }
+    }
+
+    private static String removeXML(String toremove) {
+        toremove = toremove.trim();
+        int startpoint = toremove.indexOf(">") + 1;
+        int endpoint = toremove.indexOf("</");
+        toremove = toremove.substring(startpoint, endpoint);
+        return toremove;
+    }
+
+    private static void sendBoardSettings() {
+        canvas.setBoardSize(boardLeft, boardRight);
     }
 
 }

@@ -23,8 +23,8 @@ public class gamePanel extends JPanel {
     final int canvasWidth = 1175;
     final int canvasHeight = 770;
     final int backgroundWidth = 1300;
-    static int tilesLeft = 11;
-    static int tilesRight = 11;
+    static int tilesLeft=1;
+    static int tilesRight=1;
     IClick myClick;//mouse listener, useful for menu options
     ArrayList<OnScreenObject> objects;
     private ImageIcon graphic;
@@ -37,7 +37,6 @@ public class gamePanel extends JPanel {
         objects = new ArrayList<>();
         myClick = new IClick();
         this.addMouseListener(myClick);
-        makeTiles();
         board = new int[tilesLeft][tilesRight];
     }
 
@@ -102,9 +101,10 @@ public class gamePanel extends JPanel {
 
         }
     }
-    private void setBoardSize(int left, int right){
+    public void setBoardSize(int left, int right){
         tilesLeft = left;
         tilesRight = right;
         board = new int[tilesLeft][tilesRight];
+        makeTiles();
     }
 }
