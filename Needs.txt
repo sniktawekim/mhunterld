@@ -1,0 +1,6 @@
+1. Character from all perspectives.
+2. item box
+3. playing card template (small white squares in the corners, big white square in the middle for a design)
+4. a version of the tile template that is completely transparent except for black lines on the edges
+5. some sort of "exit" tile, specially marked. example: http://img.gamefaqs.net/screens/e/9/6/gfs_44456_2_12.jpg
+6. some "player stats" HUD squares. very transparent, example: https://upload.wikimedia.org/wikipedia/ru/2/28/Battle_hunter_ss.png
