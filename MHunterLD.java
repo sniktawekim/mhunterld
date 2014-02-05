@@ -28,6 +28,7 @@ public class MHunterLD {
 
     private static void init() {
         currentFile = new ArrayList<>();
+        tiledef = new ArrayList<>();
     }
 
     public static void main(String[] args) throws IOException {
@@ -90,13 +91,11 @@ public class MHunterLD {
             }
             if (cLine.contains("<width>")) {
                 cLine = removeXML(cLine);
-                boardLeft = Integer.parseInt(cLine);
-                System.out.println(cLine);
+                boardLeft = Integer.parseInt(cLine);              
             }
             if(cLine.contains("<height>")){
                 cLine = removeXML(cLine);
-                boardRight = Integer.parseInt(cLine);
-                System.out.println(cLine);
+                boardRight = Integer.parseInt(cLine);        
             }
             i++;
             cLine = currentFile.get(i);
@@ -105,9 +104,21 @@ public class MHunterLD {
     }
 
     private static int buildTileDef(int i) {
+        
+        System.out.println("test: " + tiledef.size());
         String cLine = currentFile.get(i);
         while (!cLine.contains("</tiledef>")) {
-
+            if (cLine.contains("<id>")) {
+                cLine = removeXML(cLine);
+                int tileID = Integer.parseInt(cLine);
+                if(tileID!=tiledef.size()){
+                    System.out.println("TILE DEF ID ERROR: " + tiledef.size());
+                } else{
+                    System.out.println("id: " + tileID + " size " + tiledef.size());
+                    Tile toadd = new Tile(0,0);
+                    tiledef.add(toadd);
+                }
+            }
             i++;
             cLine = currentFile.get(i);
         }
