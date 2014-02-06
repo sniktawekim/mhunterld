@@ -187,17 +187,9 @@ public abstract class OnScreenObject {
      * used to process how the object should change with every screen refresh
      */
     public void update() {
-        if (!allowedOffscreen) {
-            checkEdge();
-        }
         xmin += run;
         ymin += rise;
-
-
     }
-
-    protected abstract void checkEdge();//checks and handles cases where object
-    //reaches end of screen.
 
 
     int getRise() {

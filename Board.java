@@ -11,12 +11,11 @@ import java.util.ArrayList;
 class Board {
 
     Tile tiles[][];
-
+    int board[][];
+    
     static ArrayList<String> currentFile;
     static ArrayList<Tile> tiledef;
-    int board[][];
     final int canvasWidth = 1175;
-
     static BufferedReader br = null;
 
     String bgi = "bgi.png";
@@ -201,7 +200,7 @@ class Board {
         }
     }
 
-    void getAllTiles(ArrayList<OnScreenObject> objects) {
+    void getAllTiles(ArrayList<Tile> objects) {
         for (int i = 0; i < tilesLeft; i++) {
             for (int j = 0; j < tilesRight; j++) {
                 objects.add(tiles[i][j]);
@@ -210,7 +209,7 @@ class Board {
     }
 
     Tile getTile(int x, int y) {
-        return tiles[x][y];
+        return tiles[x-1][tilesLeft - y];
     }
 
     private void fillBoardArray() {
@@ -249,5 +248,25 @@ class Board {
 
     String getBGI() {
         return bgi;
+    }
+    public int getLeftBarrier(){
+        Tile left = getTile(1,1);
+        int leftmost = left.getXMin() - 20;
+        return leftmost;
+    }
+    public int getRightBarrier(){
+        Tile right = getTile(tilesLeft,tilesLeft);
+        int rightmost = right.getXMax() +20;
+        return rightmost;
+    }
+    public int getUpperBarrier(){
+        Tile top = getTile(1,tilesRight);   
+        int topmost = top.getYMin() + 20;
+        return topmost;
+    }
+    public int getLowerBarrier(){
+        Tile bot = getTile(tilesLeft,1);
+        int bottommost = bot.getYMax() +20;
+        return bottommost;
     }
 }

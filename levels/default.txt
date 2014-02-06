@@ -17,8 +17,8 @@
 <board>
 
 <title>My First Board</title>
-<width>10</width>
-<height>10</height>
+<width>15</width>
+<height>15</height>
 <default>1</default>
 <fill>true</fill>
 

@@ -22,7 +22,7 @@ public class Tile extends OnScreenObject {
 
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
-        super(xLocation, yLocation, 120, 100, xLocation + 120, xLocation, yLocation + 100, yLocation);
+        super(xLocation, yLocation, 120, 100, MHunterLD.frameWidth, -120, MHunterLD.frameHeight, -85);
         setGraphic("levels/tilepic/yellow.png");
     }
 
@@ -66,11 +66,7 @@ public class Tile extends OnScreenObject {
         return copy;
     }
 
-    @Override
-    protected void checkEdge() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+
     public String getLoc(){
         return "(" + xLoc + "," + yLoc + ")";
     }
@@ -84,5 +80,7 @@ public class Tile extends OnScreenObject {
     public String getID(){
         return "tile type " + id + ": ";
     }
+
+    
 
 }
