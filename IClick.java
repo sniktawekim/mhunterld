@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package mhunterld;
-
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,18 +11,17 @@ public class IClick implements MouseListener {
 
     IClick() {
         clicked = false;
-
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        clicked = true;
+        x = e.getX();
+        y = e.getY();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        clicked = true;
-        x = e.getX();
-        y = e.getY();
     }
 
     @Override
@@ -51,7 +43,6 @@ public class IClick implements MouseListener {
             return true;
         } else {
             return false;
-
         }
     }
 
