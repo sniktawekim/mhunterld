@@ -137,16 +137,16 @@ public class gamePanel extends JPanel {
 
     private void hudAction(String action) {
         if (matches(action, "lha")) {
-            shift(100, 0);
+            shift(400, 0);
         }
         if (matches(action, "rha")) {
-            shift(-100, 0);
+            shift(-400, 0);
         }
         if (matches(action, "dha")) {
-            shift(0, -100);
+            shift(0, -400);
         }
         if (matches(action, "uha")) {
-            shift(0, 100);
+            shift(0, 400);
         }
     }
 
