@@ -15,6 +15,9 @@ public class Tile extends OnScreenObject {
 
     OnScreenObject onTile;
     int terrainCost;
+    int xLoc;
+    int yLoc;
+    int id;
 
 
     //tile width is 120 and height is 60
@@ -29,7 +32,7 @@ public class Tile extends OnScreenObject {
         if (cFromLeft < 0) {
             return false;
         }
-        int cFromRight = containerXMax - xClicked;
+        int cFromRight = getXMax() - xClicked;
         if (cFromRight < 0) {
             return false;
         }
@@ -66,6 +69,20 @@ public class Tile extends OnScreenObject {
     @Override
     protected void checkEdge() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public String getLoc(){
+        return "(" + xLoc + "," + yLoc + ")";
+    }
+    public void setLoc(int x, int y){
+        xLoc = x;
+        yLoc = y;
+    }
+    public void setID(int x){
+        id = x;
+    }
+    public String getID(){
+        return "tile type " + id + ": ";
     }
 
 }

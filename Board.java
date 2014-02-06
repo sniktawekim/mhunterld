@@ -192,8 +192,10 @@ class Board {
             for (int j = 0; j < tilesRight; j++) {
                 Tile toAdd;
                 toAdd = tiledef.get(board[i][j]).copy();
+                toAdd.setID(board[i][j]);
                 toAdd.setXMin(canvasWidth / 2 - (j * 60) + (i * 60));
                 toAdd.setYMin(-15 + (35 * j) + (i * (50 - 15)));
+                toAdd.setLoc(i+1,tilesRight - j);
                 tiles[i][j] = toAdd;
             }
         }

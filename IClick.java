@@ -15,8 +15,6 @@ public class IClick implements MouseListener {
     int x;
     int y;
     boolean clicked;
-    final int xOffset = 0;
-    final int yOffset = -23;
 
     IClick() {
         clicked = false;
@@ -30,8 +28,8 @@ public class IClick implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
         clicked = true;
-        x = e.getXOnScreen() + xOffset;
-        y = e.getYOnScreen() + yOffset;
+        x = e.getX();
+        y = e.getY();
     }
 
     @Override

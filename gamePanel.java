@@ -8,14 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
  * @author MWatkins
  */
 public class gamePanel extends JPanel {
@@ -85,15 +78,15 @@ public class gamePanel extends JPanel {
         return "testing";
     }
     private void checkClick() {
-        if (!myClick.getClicked()) {
+        if (!myClick.getClicked()) {            
             return;
         }
         for (int i = 0; i < objects.size(); i++) {
             OnScreenObject current = objects.get(i);
             if (current.isClicked(myClick.getX(), myClick.getY())) {
-                System.out.println("CLICKED");
-            }
+                System.out.println(((Tile)current).getID() + ((Tile)current).getLoc() + " " + current.getGraphPath());
 
+            } 
         }
     }
 

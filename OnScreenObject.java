@@ -142,6 +142,9 @@ public abstract class OnScreenObject {
             System.out.println(" " + graphPath);
         }
     }
+    public String getGraphPath() {
+        return graphPath;
+    }
 
     public void setAllowedOffscreen(boolean allowed) {
         allowedOffscreen = allowed;
