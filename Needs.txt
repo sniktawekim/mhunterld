@@ -1,6 +1,7 @@
 1. scroll arrows
 2. item box
 3. some sort of "exit" tile, specially marked. example: http://img.gamefaqs.net/screens/e/9/6/gfs_44456_2_12.jpg
+4. fix the tiles you made by making the edges BELOW the diamond template
 4. bar for HUD at the top of screen. Make this cool looking, not just a grey rectangle, plox. it should be the same width as
 	testBg.png
 5. Character from all perspectives.
