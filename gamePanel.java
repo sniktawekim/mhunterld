@@ -23,6 +23,7 @@ public class gamePanel extends JPanel {
     final int canvasWidth = 1175;
     final int canvasHeight = 770;
     final int backgroundWidth = 1300;
+    String bgiPath = "testBg.png";
     static int tilesLeft=1;
     static int tilesRight=1;
     IClick myClick;//mouse listener, useful for menu options
@@ -32,23 +33,17 @@ public class gamePanel extends JPanel {
     
     int board[][];
 
-    gamePanel() {
+    gamePanel(Board gBoard) {
         setBorder(BorderFactory.createLineBorder(Color.black));
         objects = new ArrayList<>();
         myClick = new IClick();
         this.addMouseListener(myClick);
-        board = new int[tilesLeft][tilesRight];
+        loadBoard(gBoard);
+        
     }
 
 
-    private void makeTiles(){
-        for(int i=0;i<tilesLeft;i++){
-            for(int j=0;j<tilesRight;j++){
-                Tile toadd = new Tile(canvasWidth/2-(j*60)+(i*60), -15 + (35*j)+(i*(50-15)));
-                objects.add(toadd);
-            }
-        }
-    }
+
 
 
 @Override
@@ -62,7 +57,7 @@ public class gamePanel extends JPanel {
     private void paintBackground(Graphics g) {
         try {//try to paint background image
 
-            graphic = new ImageIcon(this.getClass().getResource("testBg.png"));           
+            graphic = new ImageIcon(this.getClass().getResource(bgiPath));           
             gr = graphic.getImage();
             g.drawImage(gr, 0, 0, this);
 
@@ -101,10 +96,10 @@ public class gamePanel extends JPanel {
 
         }
     }
-    public void setBoardSize(int left, int right){
-        tilesLeft = left;
-        tilesRight = right;
-        board = new int[tilesLeft][tilesRight];
-        makeTiles();
+
+    private void loadBoard(Board gBoard) {
+        gBoard.getAllTiles(objects);
+        bgiPath = gBoard.getBGI();
     }
+
 }

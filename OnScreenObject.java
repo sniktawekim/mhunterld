@@ -25,6 +25,7 @@ public abstract class OnScreenObject {
     protected int containerYMin;//object cannot vertically go under
     protected int containerXMax;//object cannot horizontally go beyond
     protected int containerXMin;//object cannot horizontally go under
+    protected String graphPath;
 
     protected boolean visible;//toggles existence of object
     protected boolean allowedOffscreen;
@@ -131,12 +132,14 @@ public abstract class OnScreenObject {
      * @param setto is the path of the image to use
      */
     public void setGraphic(String setto) {
+        graphPath = setto;
         try {
             graphic = new ImageIcon(this.getClass().getResource(setto));
             g = graphic.getImage();
         } catch (Exception e) {
-            System.out.println("OnScreenObject setGraphic caught: ");
-            //e.printStackTrace();
+            System.out.print("OnScreenObject setGraphic caught: ");
+            System.out.print(e);
+            System.out.println(" " + graphPath);
         }
     }
 

@@ -5,8 +5,7 @@
  */
 package mhunterld;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -16,13 +15,12 @@ public class Tile extends OnScreenObject {
 
     OnScreenObject onTile;
     int terrainCost;
-    private ImageIcon img;
-    private Image displayImage;
+
 
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
         super(xLocation, yLocation, 120, 100, xLocation + 120, xLocation, yLocation + 100, yLocation);
-        setGraphic("tile001.png");
+        setGraphic("levels/tilepic/yellow.png");
     }
 
     @Override
@@ -56,6 +54,13 @@ public class Tile extends OnScreenObject {
             }
         }
         return false;
+    }
+
+    public Tile copy() {
+        Tile copy = new Tile(getXMin(),getYMin());
+        copy.setGraphic(graphPath);
+        copy.terrainCost = terrainCost;
+        return copy;
     }
 
     @Override
