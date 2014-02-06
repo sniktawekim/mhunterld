@@ -26,7 +26,7 @@ public class MHunterLD {
         try{
         gameBoard = new Board("levels/default.txt");//if in jar
         } catch(Exception e){//if not in jar
-            System.out.println("Developer mode:");
+            System.out.println("Hi, Mike!");
             gameBoard = new Board("src/mhunterld/levels/default.txt");
         }
         buildGameCanvas();
