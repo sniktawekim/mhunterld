@@ -269,4 +269,12 @@ class Board {
         int bottommost = bot.getYMax() +20;
         return bottommost;
     }
+    public void clearHighlights(){
+        for(int i=0;i<tilesLeft;i++){
+            for(int j=0; j<tilesRight; j++){
+                tiles[i][j].setHighlight(false);
+            }
+        }
+    }
+
 }

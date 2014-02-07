@@ -1,7 +1,9 @@
 package mhunterld;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.ImageObserver;
 import java.net.URL;
 import javax.swing.ImageIcon;
 
@@ -14,7 +16,9 @@ import javax.swing.ImageIcon;
 public abstract class OnScreenObject {
 
     private ImageIcon graphic;
+    private ImageIcon highGraph;
     Image g;
+    Image h;
     protected int xmin;//left bound of object
     protected int ymin;//right bound of object
     protected int xsize;//horizontal size of object
@@ -26,6 +30,7 @@ public abstract class OnScreenObject {
     protected int containerXMax;//object cannot horizontally go beyond
     protected int containerXMin;//object cannot horizontally go under
     protected String graphPath;
+    protected String highPath;
 
     protected boolean visible;//toggles existence of object
     protected boolean allowedOffscreen;
@@ -35,6 +40,7 @@ public abstract class OnScreenObject {
     protected boolean canCollideWithBullet = false;
 
     protected Color color;//color of object, if not a graphic
+    private boolean highlight = false;
 
     OnScreenObject(int x, int y, int sizeX, int sizeY, int cxMax, int cxMin, int cyMax, int cyMin) {
         xmin = x;
@@ -98,6 +104,9 @@ public abstract class OnScreenObject {
     public Image getGraphic() {
         return g;
     }
+    public Image getHigh(){
+        return h;
+    }
 
     /**
      *
@@ -108,8 +117,7 @@ public abstract class OnScreenObject {
     public boolean isWithin(int x, int y) {
         return x >= xmin && x <= getXMax() && y >= ymin && y <= getYMax();
     }
-    public abstract boolean isClicked(int x, int y);
-    
+
     public void setXMin(int x) {
         xmin = x;
     }
@@ -142,6 +150,19 @@ public abstract class OnScreenObject {
             System.out.println(" " + graphPath);
         }
     }
+    public void setHighGraphic(String setto){
+        highPath = setto;
+        try {
+            highGraph = new ImageIcon(this.getClass().getResource(setto));
+            h = highGraph.getImage();
+        } catch (Exception e) {
+            System.out.print("OnScreenObject setGraphic caught: ");
+            System.out.print(e);
+            System.out.println(" " + highPath);
+        }
+        
+    }
+
     public String getGraphPath() {
         return graphPath;
     }
@@ -191,7 +212,6 @@ public abstract class OnScreenObject {
         ymin += rise;
     }
 
-
     int getRise() {
         return rise;
     }
@@ -203,5 +223,18 @@ public abstract class OnScreenObject {
     public void setRun(int amount) {
         run = amount;
     }
-
+    public void setHighlight(boolean setto){
+        highlight = setto;
+    }
+    public boolean getHighlight(){
+        return highlight;
+    }
+    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz) {
+        int xpos = getXMin() + xOffset;
+        int ypos = getYMin() + yOffset;       
+        g.drawImage(getGraphic(), xpos, ypos, lulz);
+        if(highlight){
+            g.drawImage(getHigh(), xpos, ypos, lulz);
+        }
+    }
 }

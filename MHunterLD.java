@@ -54,7 +54,7 @@ public class MHunterLD {
 
     private static void pause() {
         try {
-            Thread.sleep(12); // wait 5ms
+            Thread.sleep(5); // wait 5ms
         } catch (Exception e) {
             System.out.println("paint error");
         }

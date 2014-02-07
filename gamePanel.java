@@ -46,6 +46,7 @@ public class gamePanel extends JPanel {
         paintBackground(g);
         paintObjects(g);
         checkClick();
+
     }
 
     private void paintBackground(Graphics g) {
@@ -65,26 +66,13 @@ public class gamePanel extends JPanel {
 
     private void paintObjects(Graphics g) {
         for (int i = 0; i < tiles.size(); i++) {
-            OnScreenObject current = tiles.get(i);
-            int xpos = current.getXMin() + xOffset;
-            int ypos = current.getYMin() + yOffset;
-            g.setColor(current.getColor());
-            if (current.getGraphic() != null) {//try to paint the object's image
-                g.drawImage(current.getGraphic(), xpos, ypos, this);
-            } else {//if it fails to load the image, paint it as a default color
-                g.fillOval(xpos, ypos, current.getXSize(), current.getYSize());
-            }
+            Tile current = tiles.get(i);
+            current.paint(xOffset, yOffset, g, this);
+
         }
         for (int i = 0; i < hudObjects.size(); i++) {
-            OnScreenObject current = hudObjects.get(i);
-            int xpos = current.getXMin();
-            int ypos = current.getYMin();
-            g.setColor(current.getColor());
-            if (current.getGraphic() != null) {//try to paint the object's image
-                g.drawImage(current.getGraphic(), xpos, ypos, this);
-            } else {//if it fails to load the image, paint it as a default color
-                g.fillOval(xpos, ypos, current.getXSize(), current.getYSize());
-            }
+            hudObject current = hudObjects.get(i);
+            current.paint(0, 0, g, this);
         }
     }
 
@@ -101,7 +89,7 @@ public class gamePanel extends JPanel {
 
         for (int i = 0; i < hudObjects.size(); i++) {
             hudObject current = hudObjects.get(i);
-            if (current.isClicked(xClicked, yClicked)) {
+            if (current.isWithin(xClicked, yClicked)) {
                 hudAction(current.getAction());
                 return;
             }
@@ -111,8 +99,12 @@ public class gamePanel extends JPanel {
         yClicked = myClick.getY() - yOffset;
         for (int i = 0; i < tiles.size(); i++) {
             Tile current = tiles.get(i);
-            if (current.isClicked(xClicked, yClicked)) {
-                System.out.println(current.getID() + current.getLoc() + " " + current.getGraphPath());
+            if (current.isWithin(xClicked, yClicked)) {
+                if (!current.getHighlight()) {
+                    System.out.println(current.getID() + current.getLoc() + " " + current.getGraphPath());
+                    currentBoard.clearHighlights();
+                }
+                current.setHighlight(!current.getHighlight());
                 return;
             }
         }
@@ -155,20 +147,21 @@ public class gamePanel extends JPanel {
     }
 
     private void shift(int x, int y) {
-        
-        if(!(-1*xOffset+canvasWidth>currentBoard.getRightBarrier())&&x<0){//RIGHT ARROW PRESSED, SHIFTING BOARD LEFT
+
+        if (!(-1 * xOffset + canvasWidth > currentBoard.getRightBarrier()) && x < 0) {//RIGHT ARROW PRESSED, SHIFTING BOARD LEFT
             xOffset += x;
         }
-        if(!(xOffset+canvasWidth>currentBoard.getRightBarrier())&&x>0){//LEFT ARROW PRESSED, SHIFTING BOARD RIGHT
+        if (!(xOffset + canvasWidth > currentBoard.getRightBarrier()) && x > 0) {//LEFT ARROW PRESSED, SHIFTING BOARD RIGHT
             xOffset += x;
         }
-        
-        if ((yOffset < currentBoard.getUpperBarrier()) && y>0) {//UP ARROW PRESSED, SHIFTING BOARD DOWN
+
+        if ((yOffset < currentBoard.getUpperBarrier()) && y > 0) {//UP ARROW PRESSED, SHIFTING BOARD DOWN
             yOffset += y;
         }
-        if (!((-1*yOffset) + canvasHeight > currentBoard.getLowerBarrier()) && y<0) {//DOWN ARROW PRESSED, SHIFTING BOARD UP
+        if (!((-1 * yOffset) + canvasHeight > currentBoard.getLowerBarrier()) && y < 0) {//DOWN ARROW PRESSED, SHIFTING BOARD UP
             yOffset += y;
         }
-                
+
     }
+
 }

@@ -12,10 +12,7 @@ public class hudObject extends OnScreenObject{
         setGraphic(imagePath);
     }
 
-    @Override
-    public boolean isClicked(int x, int y) {
-        return isWithin(x,y);
-    }
+
     public String getAction(){
         return actionName;
     }

@@ -17,8 +17,8 @@
 <board>
 
 <title>My First Board</title>
-<width>75</width>
-<height>75</height>
+<width>5</width>
+<height>5</height>
 <default>1</default>
 <fill>true</fill>
 
@@ -26,10 +26,6 @@
 <type>0</type>
 <tile>1,3</tile>
 <tile>2,3</tile>
-<tile>1,4</tile>
-<tile>2,4</tile>
-<tile>4,4</tile>
-<tile>8,9</tile>
 </overwrite>
 
 </board>

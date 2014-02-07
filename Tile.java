@@ -24,35 +24,36 @@ public class Tile extends OnScreenObject {
     public Tile(int xLocation, int yLocation) {
         super(xLocation, yLocation, 120, 100, MHunterLD.frameWidth, -120, MHunterLD.frameHeight, -85);
         setGraphic("levels/tilepic/yellow.png");
+        setHighGraphic("th.png");
     }
 
     @Override
-    public boolean isClicked(int xClicked, int yClicked) {
-        int cFromLeft = xClicked - xmin;
+    public boolean isWithin(int xLoc, int yLoc) {
+        int cFromLeft = xLoc - xmin;
         if (cFromLeft < 0) {
             return false;
         }
-        int cFromRight = getXMax() - xClicked;
+        int cFromRight = getXMax() - xLoc;
         if (cFromRight < 0) {
             return false;
         }
 
         //if left half of diamond
-        if (xClicked <= xmin + 60 && xClicked > xmin) {
+        if (xLoc <= xmin + 60 && xLoc > xmin) {
             //remember that less than means "above" because 0 is top of screen
             //we can calculate the y values of the diamond based on the x value
             //of where we clicked
 
             //(above bottom left side) %% (below top left side)
-            if (yClicked < ymin + (cFromLeft / 2) + 50 && yClicked > ymin - (cFromLeft / 2) + 50) {
+            if (yLoc < ymin + (cFromLeft / 2) + 50 && yLoc > ymin - (cFromLeft / 2) + 50) {
                 return true;
             }
 
             //if right half of diamond
-        } else if (xClicked > xmin + 60 && xClicked < xmin + 120) {
+        } else if (xLoc > xmin + 60 && xLoc < xmin + 120) {
 
             //(above bottom right side %% below top right side)
-            if (yClicked < ymin + (cFromRight / 2) + 50 && yClicked > ymin + 50 - (cFromRight / 2)) {
+            if (yLoc < ymin + (cFromRight / 2) + 50 && yLoc > ymin + 50 - (cFromRight / 2)) {
                 return true;
             }
         }
