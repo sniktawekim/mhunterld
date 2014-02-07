@@ -1,5 +1,5 @@
 <def>
-<bgidef>testBg.png</bgidef>
+<bgidef>pics/backgrounds/gamePanel.png</bgidef>
 <tiledef>
 <id>0</id>
 <cost>0</cost>
@@ -17,8 +17,8 @@
 <board>
 
 <title>My First Board</title>
-<width>5</width>
-<height>5</height>
+<width>50</width>
+<height>50</height>
 <default>1</default>
 <fill>true</fill>
 

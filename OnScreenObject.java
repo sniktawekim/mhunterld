@@ -33,11 +33,6 @@ public abstract class OnScreenObject {
     protected String highPath;
 
     protected boolean visible;//toggles existence of object
-    protected boolean allowedOffscreen;
-    protected boolean isSelected;//if the object was clicked on
-    protected boolean canCollideWithEnemy = false;
-    protected boolean canCollideWithPlayer = false;
-    protected boolean canCollideWithBullet = false;
 
     protected Color color;//color of object, if not a graphic
     private boolean highlight = false;
@@ -57,8 +52,6 @@ public abstract class OnScreenObject {
         run = 0;
 
         visible = true;
-        allowedOffscreen = false;
-        isSelected = false;
     }
 
     public int getXMin() {
@@ -87,10 +80,6 @@ public abstract class OnScreenObject {
 
     public Color getColor() {
         return color;
-    }
-
-    public boolean getAllowedOffscreen() {
-        return allowedOffscreen;
     }
 
     public boolean getVisible() {
@@ -166,11 +155,6 @@ public abstract class OnScreenObject {
     public String getGraphPath() {
         return graphPath;
     }
-
-    public void setAllowedOffscreen(boolean allowed) {
-        allowedOffscreen = allowed;
-    }
-
     /**
      * This method changes the movement of the object
      *

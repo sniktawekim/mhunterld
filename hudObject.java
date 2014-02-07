@@ -16,4 +16,7 @@ public class hudObject extends OnScreenObject{
     public String getAction(){
         return actionName;
     }
+        public boolean matches(String command) {
+        return actionName.compareToIgnoreCase(command) == 0;
+    }
 }
