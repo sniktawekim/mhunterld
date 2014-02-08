@@ -1,5 +1,6 @@
 <def>
 <bgidef>pics/backgrounds/gamePanel.png</bgidef>
+
 <tiledef>
 <id>0</id>
 <cost>0</cost>
@@ -11,6 +12,7 @@
 <cost>1</cost>
 <path>tilepic/tile001.png</path>
 </tiledef>
+
 </def>
 
 

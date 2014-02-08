@@ -1,0 +1,1 @@
+xcopy /e /v /y ..\currentPatch\dist .\LevelDesigner
