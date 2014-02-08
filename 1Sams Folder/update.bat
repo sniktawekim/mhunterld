@@ -1,1 +1,1 @@
-xcopy /e /v /y ..\currentPatch\dist .\LevelDesigner
+xcopy /e /v /y ..\currentPatch\distro .\LevelDesigner
