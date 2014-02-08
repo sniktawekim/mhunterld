@@ -17,6 +17,7 @@ public abstract class LevelPanel extends MPanel {
     int yOffset = 0;
 
     LevelPanel() {
+        super();
         try {
             currentBoard = new Board("levels/default.txt");//if in jar
         } catch (Exception e) {//if not in jar
