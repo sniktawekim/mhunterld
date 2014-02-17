@@ -1,19 +1,23 @@
 package mhunterld;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
+import java.util.Calendar;
 
 /**
  * @author MWatkins
  */
 public class LDPanel extends LevelPanel {
 
-LDPanel(){
-    super();
-    //now load tile library
-}
+    ArrayList<String> output;
+    String outputTxt = "";
+
+    LDPanel() {
+        super();
+        output = new ArrayList();
+        //now load tile library
+    }
 
     @Override
     protected void handleClickedTile(Tile clicked) {
@@ -22,14 +26,70 @@ LDPanel(){
             System.out.println(clicked.getID() + clicked.getLoc() + " " + clicked.getGraphPath());
         }
     }
+
     @Override
-    protected void buildHUD(){
+    protected void buildHUD() {
         super.buildHUD();
-        
+
     }
+
     @Override
     protected void hudAction(hudObject hudOb) {
         super.hudAction(hudOb);
+    }
+
+    protected void fillOutput() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+        outputTxt = timeStamp + ".lvl";
+
+        output.add("<def>");
+        output.add("<bgidef>pics/backgrounds/gamePanel.png</bgidef>");
+
+        output.add("<tiledef>");
+        output.add("<id>0</id>");
+        output.add("<cost>0</cost>");
+        output.add("<path>tilepic/hole.png</path>");
+        output.add("</tiledef>");
+
+        ArrayList<String> defPaths = new ArrayList();
+        defPaths.add("tilepic/hole.png");
+        
+        //adding defpaths
+        for (int i = 0; i < tiles.size(); i++) {
+            String tilePath = tiles.get(i).getGraphPath();
+            boolean found = false;
+            for (int j = 0; j < defPaths.size(); j++) {
+                if (tilePath.compareToIgnoreCase(defPaths.get(j)) == 0) {
+                    found = true;
+                }
+            }
+            if(!found){
+                defPaths.add(tilePath);
+            }
+        }
+        
+        //adding tile overwrites
+        for (int i = 0; i < tiles.size(); i++) {
+            String tileAdd = tiles.get(i).getLoc();
+            tileAdd = "<tile>" + tileAdd + "</tile>";
+            output.add("<overwrite>");
+            output.add(tileAdd);
+            output.add("</overwrite>");
+
+        }
+    }
+
+    protected void saveOutput() {
+        try {
+            PrintWriter writer = new PrintWriter(outputTxt, "UTF-8");//for output file
+
+            for (int i = 0; i < output.size(); i++) {
+                writer.println(output.get(i));
+            }
+            writer.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }

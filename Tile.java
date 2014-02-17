@@ -69,7 +69,7 @@ public class Tile extends OnScreenObject {
 
 
     public String getLoc(){
-        return "(" + xLoc + "," + yLoc + ")";
+        return xLoc + "," + yLoc;
     }
     public void setLoc(int x, int y){
         xLoc = x;
