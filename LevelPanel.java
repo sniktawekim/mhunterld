@@ -9,6 +9,7 @@ import java.util.ArrayList;
  */
 public abstract class LevelPanel extends MPanel {
 
+    String title = "boardName";
     static int tilesLeft = 1;
     static int tilesRight = 1;
     ArrayList<Tile> tiles;
@@ -73,6 +74,7 @@ public abstract class LevelPanel extends MPanel {
     private void loadBoard(Board gBoard) {
         gBoard.getAllTiles(tiles);
         bgiPath = gBoard.getBGI();
+        title = gBoard.title;
     }
 
     @Override

@@ -38,6 +38,7 @@ public class LDPanel extends LevelPanel {
     protected void hudAction(hudObject hudOb) {
         super.hudAction(hudOb);
         if (hudOb.matches("save")) {
+            System.out.println("SAVING");
             fillOutput();
             saveOutput();
         }
@@ -82,20 +83,34 @@ public class LDPanel extends LevelPanel {
 
         output.add("</def>");
         output.add("<board>");
-        output.add("<title>My First Board</title>");
+        output.add("<title>" + title + "</title>");
         output.add("<width>50</width>");
         output.add("<height>50</height>");
-        output.add("<default>1</default>");
+        output.add("<default>0</default>");
         output.add("<fill>true</fill>");
+
         //adding tile overwrites
-        for (int i = 0; i < tiles.size(); i++) {
+   /*     for (int i = 0; i < tiles.size(); i++) {
             String tileAdd = tiles.get(i).getLoc();
             tileAdd = "<tile>" + tileAdd + "</tile>";
             output.add("<overwrite>");
             output.add(tileAdd);
             output.add("</overwrite>");
 
+        }*/
+        for (int i = 1; i < defPaths.size(); i++) {
+            output.add("<overwrite>");
+            output.add("<type>" + i + "</type>");
+            for (int j = 0; j < tiles.size(); j++) {
+                if (tiles.get(j).getGraphPath().compareToIgnoreCase(defPaths.get(i)) == 0) {
+                    String tileAdd = tiles.get(j).getLoc();
+                    tileAdd = "<tile>" + tileAdd + "</tile>";
+                    output.add(tileAdd);
+                }
+            }
+            output.add("</overwrite>");
         }
+
         output.add("</board>");
     }
 
