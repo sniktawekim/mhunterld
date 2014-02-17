@@ -174,7 +174,7 @@ class Board {
             }
             if (cLine.contains("<path>")) {
                 cLine = removeXML(cLine);
-                toadd.setGraphic("levels/" + cLine);
+                toadd.setGraphic(cLine);
             }
             i++;
             cLine = currentFile.get(i);

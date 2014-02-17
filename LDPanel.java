@@ -30,12 +30,17 @@ public class LDPanel extends LevelPanel {
     @Override
     protected void buildHUD() {
         super.buildHUD();
-
+        hudObject saveMap = new hudObject(10, 300, 50, 40, "pics/hud/leveldesigner/saveButton.png", "save");
+        hudObjects.add(saveMap);
     }
 
     @Override
     protected void hudAction(hudObject hudOb) {
         super.hudAction(hudOb);
+        if (hudOb.matches("save")) {
+            fillOutput();
+            saveOutput();
+        }
     }
 
     protected void fillOutput() {
@@ -45,15 +50,9 @@ public class LDPanel extends LevelPanel {
         output.add("<def>");
         output.add("<bgidef>pics/backgrounds/gamePanel.png</bgidef>");
 
-        output.add("<tiledef>");
-        output.add("<id>0</id>");
-        output.add("<cost>0</cost>");
-        output.add("<path>tilepic/hole.png</path>");
-        output.add("</tiledef>");
-
         ArrayList<String> defPaths = new ArrayList();
-        defPaths.add("tilepic/hole.png");
-        
+        defPaths.add("levels/tilepic/hole.png");
+
         //adding defpaths
         for (int i = 0; i < tiles.size(); i++) {
             String tilePath = tiles.get(i).getGraphPath();
@@ -63,11 +62,31 @@ public class LDPanel extends LevelPanel {
                     found = true;
                 }
             }
-            if(!found){
+            if (!found) {
                 defPaths.add(tilePath);
             }
         }
-        
+
+        //making tiledefs
+        for (int i = 0; i < defPaths.size(); i++) {
+            output.add("<tiledef>");
+            output.add("<id>" + i + "</id>");
+            if (i == 0) {
+                output.add("<cost>0</cost>");
+            } else {
+                output.add("<cost>1</cost>");
+            }
+            output.add("<path>" + defPaths.get(i) + "</path>");
+            output.add("</tiledef>");
+        }
+
+        output.add("</def>");
+        output.add("<board>");
+        output.add("<title>My First Board</title>");
+        output.add("<width>50</width>");
+        output.add("<height>50</height>");
+        output.add("<default>1</default>");
+        output.add("<fill>true</fill>");
         //adding tile overwrites
         for (int i = 0; i < tiles.size(); i++) {
             String tileAdd = tiles.get(i).getLoc();
@@ -77,6 +96,7 @@ public class LDPanel extends LevelPanel {
             output.add("</overwrite>");
 
         }
+        output.add("</board>");
     }
 
     protected void saveOutput() {
@@ -90,6 +110,7 @@ public class LDPanel extends LevelPanel {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        output = new ArrayList();
     }
 
 }
