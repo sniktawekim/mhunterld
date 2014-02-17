@@ -39,11 +39,14 @@ public class LDPanel extends LevelPanel {
         super.hudAction(hudOb);
         if (hudOb.matches("save")) {
             System.out.println("SAVING");
-            fillOutput();
-            saveOutput();
+            saveLevel();
         }
     }
 
+    protected void saveLevel(){
+        fillOutput();
+        saveOutput();
+    }
     protected void fillOutput() {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
         outputTxt = timeStamp + ".lvl";
@@ -89,15 +92,6 @@ public class LDPanel extends LevelPanel {
         output.add("<default>0</default>");
         output.add("<fill>true</fill>");
 
-        //adding tile overwrites
-   /*     for (int i = 0; i < tiles.size(); i++) {
-            String tileAdd = tiles.get(i).getLoc();
-            tileAdd = "<tile>" + tileAdd + "</tile>";
-            output.add("<overwrite>");
-            output.add(tileAdd);
-            output.add("</overwrite>");
-
-        }*/
         for (int i = 1; i < defPaths.size(); i++) {
             output.add("<overwrite>");
             output.add("<type>" + i + "</type>");

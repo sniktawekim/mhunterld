@@ -20,10 +20,10 @@ public abstract class LevelPanel extends MPanel {
     LevelPanel() {
         super();
         try {
-            currentBoard = new Board("levels/default.txt");//if in jar
+            currentBoard = new Board("levels/default.lvl");//if in jar
         } catch (Exception e) {//if not in jar
             System.out.println("Hi, Mike!");
-            currentBoard = new Board("src/mhunterld/levels/default.txt");
+            currentBoard = new Board("src/mhunterld/levels/default.lvl");
         }
         tiles = new ArrayList<>();
         loadBoard(currentBoard);

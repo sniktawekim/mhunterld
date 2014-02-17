@@ -19,7 +19,7 @@ class Board {
     static BufferedReader br = null;
 
     String bgi = "bgi.png";
-    String filepath = "levels/default.txt";
+    String filepath = "levels/default.lvl";
 
     String title = "Level";
     int defaultTile = 0;
