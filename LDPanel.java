@@ -100,6 +100,7 @@ public class LDPanel extends LevelPanel {
             Tile toReplace = new Tile(godsTile.getXMin(),godsTile.getYMin());
             String selectedTileS = String.format("%03d", selectedTile);
             toReplace.setGraphic("levels/tilepic/tile" + selectedTileS +".png");
+            toReplace.setID(selectedTile);
             setGodsTile(toReplace);
         }
     }
