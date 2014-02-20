@@ -19,4 +19,7 @@ public class hudObject extends OnScreenObject{
         public boolean matches(String command) {
         return actionName.compareToIgnoreCase(command) == 0;
     }
+        public boolean contains(String toLook){
+            return actionName.contains(toLook);
+        }
 }

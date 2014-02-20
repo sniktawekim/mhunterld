@@ -1,9 +1,11 @@
 package mhunterld;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  * @author MWatkins
@@ -12,10 +14,17 @@ public class LDPanel extends LevelPanel {
 
     ArrayList<String> output;
     String outputTxt = "";
+    int tileLibOffset = 1;
+    ArrayList<Tile> tileLibrary;
+    Tile godsTile;
+    hudObject tilePreview;
+    int tilePrevLoc;
+    Tile holeTile;
 
     LDPanel() {
         super();
         output = new ArrayList();
+        loadTileLib();
         //now load tile library
     }
 
@@ -23,39 +32,94 @@ public class LDPanel extends LevelPanel {
     protected void handleClickedTile(Tile clicked) {
         clicked.setHighlight(!clicked.getHighlight());
         if (clicked.getHighlight()) {
-            System.out.println(clicked.getID() + clicked.getLoc() + " " + clicked.getGraphPath());
+            System.out.println("Tile ID: " + clicked.getID() + " " + clicked.getLoc() + " " + clicked.getGraphPath());
         }
     }
 
     @Override
     protected void buildHUD() {
+        int tileRows = 12;
+
         super.buildHUD();
-        hudObject saveMap = new hudObject(10, 300, 50, 40, "pics/hud/leveldesigner/saveButton.png", "save");
+        hudObject buttonBg = new hudObject(11, 237, 476, 157, "pics/hud/leveldesigner/buttonBg.png", "");
+
+        hudObject saveMap = new hudObject(10, 310, 100, 40, "pics/hud/leveldesigner/saveButton.png", "save");
+        hudObject newMap = new hudObject(10, 350, 100, 40, "pics/hud/leveldesigner/newButton.png", "new");
+
+        hudObject deleteSelection = new hudObject(391, 270, 100, 40, "pics/hud/leveldesigner/deleteButton.png", "delete");
+        hudObject fillSelection = new hudObject(391, 310, 100, 40, "pics/hud/leveldesigner/fillButton.png", "fill");
+        hudObject clearSelection = new hudObject(391, 350, 100, 40, "pics/hud/leveldesigner/clearButton.png", "clear");
+
+        hudObject tilesTab = new hudObject(0, 0, 500, 405, "pics/hud/leveldesigner/tilesTab.png", "");
+
+        hudObjects.add(tilesTab);
+        int ypos = 27;
+
+        for (int rows = 0; rows < tileRows; rows++) {
+            hudObject newRow = new hudObject(11, ypos, 478, 17, "pics/hud/leveldesigner/row0" + ((rows % 2) + 1) + ".png", "row" + rows);
+            hudString rowTileText = new hudString("Tile " + (rows + tileLibOffset), 11, ypos);
+            ypos += 17;
+            hudObjects.add(newRow);
+            hudFonts.add(rowTileText);
+        }
+        Tile temp = new Tile(0, 0);
+        temp.setGraphic("levels/tilepic/tile001.png");
+        godsTile = temp;
+        holeTile = temp;
+        hudObjects.add(buttonBg);
         hudObjects.add(saveMap);
+        hudObjects.add(newMap);
+        hudObjects.add(clearSelection);
+        hudObjects.add(fillSelection);
+        hudObjects.add(deleteSelection);
+
     }
 
     @Override
     protected void hudAction(hudObject hudOb) {
+        //System.out.println(hudOb.getAction());
         super.hudAction(hudOb);
         if (hudOb.matches("save")) {
             System.out.println("SAVING");
             saveLevel();
         }
+        if (hudOb.matches("clear")) {
+            System.out.println("CLEARING SELECTION");
+            clearSelection();
+        }
+        if (hudOb.matches("delete")) {
+            System.out.println("DELETING SELECTED");
+            deleteSelection();
+        }
+        if (hudOb.matches("fill")) {
+            System.out.println("FILLING SELECTED");
+            fillSelection();
+        }
+        if(hudOb.contains("row")){
+            int selectedTile = Integer.parseInt(hudOb.getAction().substring(3));
+            Tile toReplace = new Tile(godsTile.getXMin(),godsTile.getYMin());
+            String selectedTileS = String.format("%03d", selectedTile);
+            toReplace.setGraphic("levels/tilepic/tile" + selectedTileS +".png");
+            setGodsTile(toReplace);
+        }
     }
 
-    protected void saveLevel(){
+    protected void saveLevel() {
         fillOutput();
         saveOutput();
     }
+
     protected void fillOutput() {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
         outputTxt = timeStamp + ".lvl";
 
+        title =  JOptionPane.showInputDialog ( "Level Name: " ); 
+        outputTxt = title + ".lvl";
         output.add("<def>");
         output.add("<bgidef>pics/backgrounds/gamePanel.png</bgidef>");
 
         ArrayList<String> defPaths = new ArrayList();
-        defPaths.add("levels/tilepic/hole.png");
+        defPaths.add("levels/tilepic/tile000.png");
 
         //adding defpaths
         for (int i = 0; i < tiles.size(); i++) {
@@ -120,6 +184,54 @@ public class LDPanel extends LevelPanel {
             System.out.println(e.getMessage());
         }
         output = new ArrayList();
+    }
+
+    private void clearSelection() {
+        for (int i = 0; i < tiles.size(); i++) {
+            tiles.get(i).setHighlight(false);
+        }
+    }
+
+    private void loadTileLib() {
+        tileLibrary = new ArrayList();
+        File tileFolder = new File(prePath + "levels/tilepic");
+        File[] tilePics = tileFolder.listFiles();
+        holeTile = new Tile(0, 0);
+        holeTile.setGraphic("levels/tilepic/tile000.png");
+        for (int i = 0; i < tilePics.length; i++) {
+            String path = tilePics[i].getName();
+            Tile libTile = new Tile(0, 0);
+            libTile.setGraphic("levels/tilepic/" + path);
+            libTile.setID(i);
+            tileLibrary.add(libTile);
+        }
+
+        godsTile = tileLibrary.get(2);
+        System.out.println(godsTile.getGraphPath());
+        tilePreview = new hudObject(180, 270, 160, 100, godsTile.getGraphPath(), "");
+        hudObjects.add(tilePreview);
+        tilePrevLoc = hudObjects.size()-1;
+    }
+
+    private void deleteSelection() {
+        for (int i = 0; i < tiles.size(); i++) {
+            if (tiles.get(i).getHighlight()) {
+                tiles.get(i).replaceWith(holeTile);
+            }
+        }
+    }
+
+    private void fillSelection() {
+        for (int i = 0; i < tiles.size(); i++) {
+            if (tiles.get(i).getHighlight()) {
+                tiles.get(i).replaceWith(godsTile);
+            }
+        }
+    }
+    private void setGodsTile(Tile replaceTo){
+        godsTile.replaceWith(replaceTo);
+        tilePreview = new hudObject(180, 270, 160, 100, godsTile.getGraphPath(), "");
+        hudObjects.set(tilePrevLoc,tilePreview);
     }
 
 }

@@ -9,8 +9,8 @@ import javax.swing.JPanel;
  */
 public class MHunterLD {
 
-    static ArrayList<String> currentFile;
-    static ArrayList<Tile> tiledef;
+
+
     static MPanel canvas;
     static CharacterPanel charCanvas;
     static JFrame frame;
@@ -19,14 +19,13 @@ public class MHunterLD {
     static String currentCanvas = "menu";
 
     private static void init() {
-        currentFile = new ArrayList<>();
-        tiledef = new ArrayList<>();
+        buildCanvas();
+        canvasControl();
     }
 
     public static void main(String[] args) {
         init();
-        buildCanvas();
-        canvasControl();
+        
     }
 
     private static void buildCanvas() {

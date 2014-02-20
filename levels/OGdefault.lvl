@@ -3,13 +3,13 @@
 <tiledef>
 <id>0</id>
 <cost>0</cost>
-<path>levels/tilepic/hole.png</path>
+<path>levels/tilepic/tile000.png</path>
 </tiledef>
 
 <tiledef>
 <id>1</id>
 <cost>1</cost>
-<path>levels/tilepic/tile001.png</path>
+<path>levels/tilepic/tile002.png</path>
 </tiledef>
 </def>
 

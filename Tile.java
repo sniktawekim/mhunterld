@@ -23,7 +23,7 @@ public class Tile extends OnScreenObject {
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
         super(xLocation, yLocation, 120, 100, MHunterLD.frameWidth, -120, MHunterLD.frameHeight, -85);
-        setGraphic("levels/tilepic/yellow.png");
+        setGraphic("levels/tilepic/tile001.png");
         setHighGraphic("pics/highlights/th.png");
     }
 
@@ -78,10 +78,14 @@ public class Tile extends OnScreenObject {
     public void setID(int x){
         id = x;
     }
-    public String getID(){
-        return "tile type " + id + ": ";
+    public int getID(){
+        return id;
     }
 
-    
+    public void replaceWith(Tile newInfo){
+        setGraphic(newInfo.getGraphPath());
+        setID(newInfo.getID());
+        terrainCost = newInfo.terrainCost;
+    }
 
 }

@@ -24,6 +24,7 @@ public abstract class MPanel extends JPanel {
     final int backgroundWidth = 1300;
     String bgiPath = "pics/backgrounds/default.png";
     ArrayList<hudObject> hudObjects;
+    ArrayList<hudString> hudFonts;
     protected ImageIcon bgIcon;
     protected Image bgImage;
     IClick myClick;//mouse listener, useful for menu options
@@ -36,6 +37,7 @@ public abstract class MPanel extends JPanel {
 
     MPanel() {
         hudObjects = new ArrayList<>();
+        hudFonts = new ArrayList<>();
         myClick = new IClick();
         this.addMouseListener(myClick);
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -68,6 +70,10 @@ public abstract class MPanel extends JPanel {
             hudObject current = hudObjects.get(i);
             current.paint(0, 0, g, this);
         }
+        for (int i = 0; i < hudFonts.size(); i++) {
+            hudString current = hudFonts.get(i);
+            current.paint(0, 17, g, this);
+        }
     }
 
     protected void checkClick() {
@@ -76,15 +82,20 @@ public abstract class MPanel extends JPanel {
         int yClicked = myClick.getY();
         for (int i = 0; i < hudObjects.size(); i++) {
             hudObject current = hudObjects.get(i);
-            if (current.isWithin(xClicked, yClicked)) {
+            if (current.isWithin(xClicked, yClicked) && !(current.getAction().compareToIgnoreCase("") == 0)) {
                 hudAction(current);
                 hudclicked = true;
                 return;
+            } else if (current.isWithin(xClicked, yClicked)) {
+                hudclicked = true;            
             }
         }
-
+        if(hudclicked){
+            return;
+        }
     }
-    protected String update(){
+
+    protected String update() {
         return status;
     }
 

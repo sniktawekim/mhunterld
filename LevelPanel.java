@@ -16,6 +16,7 @@ public abstract class LevelPanel extends MPanel {
     Board currentBoard;
     int xOffset = 0;
     int yOffset = 0;
+    String prePath = "";
 
     LevelPanel() {
         super();
@@ -24,6 +25,7 @@ public abstract class LevelPanel extends MPanel {
         } catch (Exception e) {//if not in jar
             System.out.println("Hi, Mike!");
             currentBoard = new Board("src/mhunterld/levels/default.lvl");
+            prePath = "src/mhunterld/";
         }
         tiles = new ArrayList<>();
         loadBoard(currentBoard);
@@ -58,8 +60,8 @@ public abstract class LevelPanel extends MPanel {
 
     @Override
     protected void buildHUD() {
-        hudObject leftArrow = new hudObject(0, canvasHeight / 2 - 25, 40, 50, "pics/hud/arrows/lha.png", "lha");
-        hudObject rightArrow = new hudObject(canvasWidth - 40, canvasHeight / 2 - 25, 40, 50, "pics/hud/arrows/rha.png", "rha");
+        hudObject leftArrow = new hudObject(0, canvasHeight / 2, 40, 50, "pics/hud/arrows/lha.png", "lha");
+        hudObject rightArrow = new hudObject(canvasWidth - 40, canvasHeight / 2, 40, 50, "pics/hud/arrows/rha.png", "rha");
         hudObject upArrow = new hudObject(canvasWidth / 2 - 25, 0, 50, 40, "pics/hud/arrows/uha.png", "uha");
         hudObject downArrow = new hudObject(canvasWidth / 2 - 25, canvasHeight - 40, 50, 40, "pics/hud/arrows/dha.png", "dha");
 
