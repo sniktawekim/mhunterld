@@ -28,6 +28,7 @@ public abstract class MPanel extends JPanel {
     protected ImageIcon bgIcon;
     protected Image bgImage;
     IClick myClick;//mouse listener, useful for menu options
+    Ipress myPress;
     boolean hudclicked = false;
     protected String status = "good";
 
@@ -39,7 +40,10 @@ public abstract class MPanel extends JPanel {
         hudObjects = new ArrayList<>();
         hudFonts = new ArrayList<>();
         myClick = new IClick();
+        myPress = new Ipress();
+        this.addKeyListener(myPress);
         this.addMouseListener(myClick);
+        addMouseMotionListener(myClick);
         setBorder(BorderFactory.createLineBorder(Color.black));
         buildHUD();
     }
@@ -63,12 +67,13 @@ public abstract class MPanel extends JPanel {
         paintBackground(g);
         paintObjects(g);
         checkClick();
+        checkKey();
     }
 
     protected void paintObjects(Graphics g) {
         for (int i = 0; i < hudObjects.size(); i++) {
             hudObject current = hudObjects.get(i);
-            current.paint(0, 0, g, this);
+            current.paint(0, 0, g, this, myClick);
         }
         for (int i = 0; i < hudFonts.size(); i++) {
             hudString current = hudFonts.get(i);
@@ -78,8 +83,8 @@ public abstract class MPanel extends JPanel {
 
     protected void checkClick() {
         hudclicked = false;
-        int xClicked = myClick.getX();
-        int yClicked = myClick.getY();
+        int xClicked = myClick.getEX();
+        int yClicked = myClick.getEY();
         for (int i = 0; i < hudObjects.size(); i++) {
             hudObject current = hudObjects.get(i);
             if (current.isWithin(xClicked, yClicked) && !(current.getAction().compareToIgnoreCase("") == 0)) {
@@ -97,6 +102,10 @@ public abstract class MPanel extends JPanel {
 
     protected String update() {
         return status;
+    }
+
+    protected void checkKey() {
+        
     }
 
 }

@@ -34,7 +34,7 @@ public abstract class LevelPanel extends MPanel {
     protected void paintObjects(Graphics g) {
         for (int i = 0; i < tiles.size(); i++) {
             Tile current = tiles.get(i);
-            current.paint(xOffset, yOffset, g, this);
+            current.paint(xOffset, yOffset, g, this, myClick);
 
         }
         super.paintObjects(g);
@@ -46,8 +46,8 @@ public abstract class LevelPanel extends MPanel {
         }       
         super.checkClick();//checks hud clicking
         if (!hudclicked) {
-            int xClicked = myClick.getX() - xOffset;
-            int yClicked = myClick.getY() - yOffset;
+            int xClicked = myClick.getEX() - xOffset;
+            int yClicked = myClick.getEY() - yOffset;
             for (int i = 0; i < tiles.size(); i++) {
                 Tile current = tiles.get(i);
                 if (current.isWithin(xClicked, yClicked)) {
@@ -57,6 +57,21 @@ public abstract class LevelPanel extends MPanel {
             }
         }
     }
+     protected void checkKey() {
+        if(myPress.getKeyPressed("left")){
+            shift(10, 0);
+        }
+        if(myPress.getKeyPressed("right")){
+            shift(-10, 0);
+        }
+        if(myPress.getKeyPressed("up")){
+            shift(0, 10);
+        }
+        if(myPress.getKeyPressed("down")){
+            shift(0, -10);
+        }
+                
+     }
 
     @Override
     protected void buildHUD() {

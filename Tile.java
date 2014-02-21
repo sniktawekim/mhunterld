@@ -24,7 +24,8 @@ public class Tile extends OnScreenObject {
     public Tile(int xLocation, int yLocation) {
         super(xLocation, yLocation, 120, 100, MHunterLD.frameWidth, -120, MHunterLD.frameHeight, -85);
         setGraphic("levels/tilepic/tile001.png");
-        setHighGraphic("pics/highlights/th.png");
+        setHighGraphic("pics/highlights/tileHighlight.png");
+        setHoverGraphic("pics/highlights/tileHover.png");
     }
 
     @Override

@@ -17,8 +17,10 @@ public abstract class OnScreenObject {
 
     private ImageIcon graphic;
     private ImageIcon highGraph;
+    private ImageIcon hoverGraph;
     Image g;
     Image h;
+    Image o;
     protected int xmin;//left bound of object
     protected int ymin;//right bound of object
     protected int xsize;//horizontal size of object
@@ -36,6 +38,8 @@ public abstract class OnScreenObject {
 
     protected Color color;//color of object, if not a graphic
     private boolean highlight = false;
+    private String hoverPath;
+    private boolean hovered = false;
 
     OnScreenObject(int x, int y, int sizeX, int sizeY, int cxMax, int cxMin, int cyMax, int cyMin) {
         xmin = x;
@@ -93,8 +97,12 @@ public abstract class OnScreenObject {
     public Image getGraphic() {
         return g;
     }
-    public Image getHigh(){
+
+    public Image getHigh() {
         return h;
+    }
+    public Image getHover(){
+        return o;
     }
 
     /**
@@ -139,7 +147,8 @@ public abstract class OnScreenObject {
             System.out.println(" " + graphPath);
         }
     }
-    public void setHighGraphic(String setto){
+
+    public void setHighGraphic(String setto) {
         highPath = setto;
         try {
             highGraph = new ImageIcon(this.getClass().getResource(setto));
@@ -149,12 +158,28 @@ public abstract class OnScreenObject {
             System.out.print(e);
             System.out.println(" " + highPath);
         }
-        
+
+    }
+        public void setHoverGraphic(String setto) {
+        hoverPath = setto;
+        try {
+            hoverGraph = new ImageIcon(this.getClass().getResource(setto));
+            o = hoverGraph.getImage();
+        } catch (Exception e) {
+            System.out.print("OnScreenObject setGraphic caught: ");
+            System.out.print(e);
+            System.out.println(" " + hoverPath);
+        }
+
     }
 
     public String getGraphPath() {
         return graphPath;
     }
+    public String getHoverPath() {
+        return hoverPath;
+    }
+
     /**
      * This method changes the movement of the object
      *
@@ -207,18 +232,45 @@ public abstract class OnScreenObject {
     public void setRun(int amount) {
         run = amount;
     }
-    public void setHighlight(boolean setto){
+
+    public void setHighlight(boolean setto) {
         highlight = setto;
     }
-    public boolean getHighlight(){
+
+    public boolean getHighlight() {
         return highlight;
     }
-    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz) {
+    private void setHovered(boolean setto){
+        hovered = setto;
+    }
+    public boolean getHovered(){
+        return hovered;
+    }
+    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz,IClick mouse) {
         int xpos = getXMin() + xOffset;
-        int ypos = getYMin() + yOffset;       
-        g.drawImage(getGraphic(), xpos, ypos, lulz);
-        if(highlight){
-            g.drawImage(getHigh(), xpos, ypos, lulz);
-        }
+        int ypos = getYMin() + yOffset;
+        if (isOnScreen(xpos, ypos)) {
+            g.drawImage(getGraphic(), xpos, ypos, lulz);
+            if (highlight) {
+                g.drawImage(getHigh(), xpos, ypos, lulz);
+            }
+            if(isWithin(mouse.getX()-xOffset, mouse.getY()-yOffset)){
+                g.drawImage(getHover(), xpos, ypos, lulz);
+                setHovered(true);
+                if(mouse.getPress()){
+                    setHighlight(true);
+                }
+            } else{
+                setHovered(false);
+            }
+        } 
+    }
+
+    public boolean isOnScreen(int x, int y) {
+        boolean isntRight = x<containerXMax;
+        boolean isntLeft = (x+xsize)>containerXMin;
+        boolean isntBelow = y<containerYMax;
+        boolean isntAbove = (y+ysize)>0;
+        return isntRight&&isntLeft&&isntBelow&&isntAbove;
     }
 }

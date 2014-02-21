@@ -1,15 +1,15 @@
 package mhunterld;
 
-import java.util.ArrayList;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * MWatkins Feb 4, 2014
  */
 public class MHunterLD {
-
-
 
     static MPanel canvas;
     static CharacterPanel charCanvas;
@@ -25,7 +25,7 @@ public class MHunterLD {
 
     public static void main(String[] args) {
         init();
-        
+
     }
 
     private static void buildCanvas() {
@@ -40,7 +40,8 @@ public class MHunterLD {
     }
 
     private static void canvasControl() {
-        while (canvas.update().compareToIgnoreCase("good")==0) {
+        changeCursor();
+        while (canvas.update().compareToIgnoreCase("good") == 0) {
             canvas.repaint();
             pause();
         }
@@ -73,5 +74,20 @@ public class MHunterLD {
         if (currentCanvas.compareToIgnoreCase("play") == 0) {
             canvas = new GamePanel();
         }
+    }
+
+    private static void changeCursor() {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Image image;
+        try {
+            //just to see if we are in the jar or not:
+            Board currentBoard = new Board("levels/default.lvl");
+            image = toolkit.getImage("pics/hud/cursor/cursor.png");
+        } catch (Exception e) {
+            image = toolkit.getImage("src/mhunterld/pics/hud/cursor/cursor.png");
+        }
+        Cursor c = toolkit.createCustomCursor(image, new Point(frame.getX() + 3,
+                frame.getY() + 3), "img");
+        frame.setCursor(c);
     }
 }

@@ -45,12 +45,12 @@ public class CharacterPanel extends MPanel {
     protected void paintObjects(Graphics g) {
         for (int i = 0; i < tiles.size(); i++) {
             Tile current = tiles.get(i);
-            current.paint(xOffset, yOffset, g, this);
+            current.paint(xOffset, yOffset, g, this, myClick);
 
         }
         for (int i = 0; i < hudObjects.size(); i++) {
             hudObject current = hudObjects.get(i);
-            current.paint(0, 0, g, this);
+            current.paint(0, 0, g, this, myClick);
         }
     }
 

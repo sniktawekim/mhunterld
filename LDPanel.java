@@ -30,9 +30,12 @@ public class LDPanel extends LevelPanel {
 
     @Override
     protected void handleClickedTile(Tile clicked) {
-        clicked.setHighlight(!clicked.getHighlight());
-        if (clicked.getHighlight()) {
+        if (clicked.isWithin(myClick.getX() - xOffset, myClick.getY() - yOffset)) {//if we aren't dragging
+            clicked.setHighlight(!clicked.getHighlight());//toggle its selected status
+        }
+        if (clicked.getHighlight()) {//if it is now highlighted
             System.out.println("Tile ID: " + clicked.getID() + " " + clicked.getLoc() + " " + clicked.getGraphPath());
+            //print tile info
         }
     }
 
@@ -95,11 +98,11 @@ public class LDPanel extends LevelPanel {
             System.out.println("FILLING SELECTED");
             fillSelection();
         }
-        if(hudOb.contains("row")){
+        if (hudOb.contains("row")) {
             int selectedTile = Integer.parseInt(hudOb.getAction().substring(3));
-            Tile toReplace = new Tile(godsTile.getXMin(),godsTile.getYMin());
+            Tile toReplace = new Tile(godsTile.getXMin(), godsTile.getYMin());
             String selectedTileS = String.format("%03d", selectedTile);
-            toReplace.setGraphic("levels/tilepic/tile" + selectedTileS +".png");
+            toReplace.setGraphic("levels/tilepic/tile" + selectedTileS + ".png");
             toReplace.setID(selectedTile);
             setGodsTile(toReplace);
         }
@@ -114,7 +117,7 @@ public class LDPanel extends LevelPanel {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
         outputTxt = timeStamp + ".lvl";
 
-        title =  JOptionPane.showInputDialog ( "Level Name: " ); 
+        title = JOptionPane.showInputDialog("Level Name: ");
         outputTxt = title + ".lvl";
         output.add("<def>");
         output.add("<bgidef>pics/backgrounds/gamePanel.png</bgidef>");
@@ -211,7 +214,7 @@ public class LDPanel extends LevelPanel {
         System.out.println(godsTile.getGraphPath());
         tilePreview = new hudObject(180, 270, 160, 100, godsTile.getGraphPath(), "");
         hudObjects.add(tilePreview);
-        tilePrevLoc = hudObjects.size()-1;
+        tilePrevLoc = hudObjects.size() - 1;
     }
 
     private void deleteSelection() {
@@ -229,10 +232,11 @@ public class LDPanel extends LevelPanel {
             }
         }
     }
-    private void setGodsTile(Tile replaceTo){
+
+    private void setGodsTile(Tile replaceTo) {
         godsTile.replaceWith(replaceTo);
         tilePreview = new hudObject(180, 270, 160, 100, godsTile.getGraphPath(), "");
-        hudObjects.set(tilePrevLoc,tilePreview);
+        hudObjects.set(tilePrevLoc, tilePreview);
     }
 
 }

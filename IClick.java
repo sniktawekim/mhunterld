@@ -1,14 +1,16 @@
 package mhunterld;
 
-import static java.awt.MouseInfo.getPointerInfo;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.event.MouseInputAdapter;
 
-public class IClick implements MouseListener {
+public class IClick extends MouseInputAdapter {
 
-    int x;
-    int y;
+    int eventX;
+    int eventY;
+    int x = 0;
+    int y = 0;
     boolean clicked;
+    private boolean pressed = false;
 
     IClick() {
         clicked = false;
@@ -16,11 +18,18 @@ public class IClick implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        eventX = e.getX();
+        eventY = e.getY();
+
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        pressed = true;
         x = e.getX();
         y = e.getY();
     }
@@ -28,7 +37,8 @@ public class IClick implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
         clicked = true;
-        
+        pressed = false;
+
     }
 
     @Override
@@ -50,11 +60,28 @@ public class IClick implements MouseListener {
 
     }
 
+    public int getEX() {
+        return eventX;
+    }
+
+    public int getEY() {
+        return eventY;
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        x = e.getX();
+        y = e.getY();
+    }
+
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
+    }
+
+    public boolean getPress() {
+        return pressed;
     }
 }

@@ -70,12 +70,12 @@ class Board {
                 currentFile.add(sCurrentLine);
             }
         } catch (IOException e) {
-            System.out.println("Error in " + filepath + ": " + e);
+            
         }
         try {
             br.close();
         } catch(Exception e){
-            System.out.println("error closing file");
+            
         }
     }
 
