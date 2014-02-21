@@ -217,6 +217,19 @@ public class LDPanel extends LevelPanel {
         tilePrevLoc = hudObjects.size() - 1;
     }
 
+    protected void checkKey() {
+        super.checkKey();
+        if (myPress.getKeyPressed("delete")) {
+            deleteSelection();
+        }
+        if (myPress.getKeyPressed("fill")) {
+            fillSelection();
+        }
+        if (myPress.getKeyPressed("clear")) {
+            clearSelection();
+        }
+    }
+
     private void deleteSelection() {
         for (int i = 0; i < tiles.size(); i++) {
             if (tiles.get(i).getHighlight()) {
