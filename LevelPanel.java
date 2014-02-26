@@ -16,7 +16,7 @@ public abstract class LevelPanel extends MPanel {
     Board currentBoard;
     int xOffset = 0;
     int yOffset = 0;
-    String prePath = "";
+    static String prePath = "";
 
     LevelPanel() {
         super();

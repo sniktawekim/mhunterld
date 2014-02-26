@@ -5,7 +5,8 @@
  */
 package mhunterld;
 
-
+import java.awt.Graphics;
+import java.awt.image.ImageObserver;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Tile extends OnScreenObject {
     int xLoc;
     int yLoc;
     int id;
-
+    OnScreenObject onTop = null;
 
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
@@ -62,31 +63,52 @@ public class Tile extends OnScreenObject {
     }
 
     public Tile copy() {
-        Tile copy = new Tile(getXMin(),getYMin());
+        Tile copy = new Tile(getXMin(), getYMin());
         copy.setGraphic(graphPath);
         copy.terrainCost = terrainCost;
         return copy;
     }
 
-
-    public String getLoc(){
+    public String getLoc() {
         return xLoc + "," + yLoc;
     }
-    public void setLoc(int x, int y){
+
+    public void setLoc(int x, int y) {
         xLoc = x;
         yLoc = y;
     }
-    public void setID(int x){
+
+    public void setID(int x) {
         id = x;
     }
-    public int getID(){
+
+    public int getID() {
         return id;
     }
 
-    public void replaceWith(Tile newInfo){
+    public void replaceWith(Tile newInfo) {
         setGraphic(newInfo.getGraphPath());
         setID(newInfo.getID());
         terrainCost = newInfo.terrainCost;
     }
 
+    protected void calcHighlightStatus(IClick mouse) {
+        if (mouse.getPress() && MHunterLD.currentCanvas.compareToIgnoreCase("ld") == 0) {
+            setHighlight(true);
+        }
+    }
+
+    protected boolean calcHoveredStatus(int xOffset, int yOffset, IClick mouse) {
+        return isWithin(mouse.getX() - xOffset, mouse.getY() - yOffset) && (!mouse.getPress() || MHunterLD.currentCanvas.compareToIgnoreCase("ld") == 0);
+    }
+
+    protected void setOnTop(OnScreenObject toPlace){
+        onTop = toPlace;
+    }
+    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz, IClick mouse){
+        super.paint(xOffset, yOffset, g, lulz, mouse);
+        if(onTop!=null){
+            onTop.paint(xOffset, yOffset, g, lulz, mouse);
+        }
+    }
 }

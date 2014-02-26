@@ -41,40 +41,11 @@ public class LDPanel extends LevelPanel {
 
     @Override
     protected void buildHUD() {
-        int tileRows = 12;
+        
 
         super.buildHUD();
-        hudObject buttonBg = new hudObject(11, 237, 476, 157, "pics/hud/leveldesigner/buttonBg.png", "");
+        buildTileCommander();
 
-        hudObject saveMap = new hudObject(10, 310, 100, 40, "pics/hud/leveldesigner/saveButton.png", "save");
-        hudObject newMap = new hudObject(10, 350, 100, 40, "pics/hud/leveldesigner/newButton.png", "new");
-
-        hudObject deleteSelection = new hudObject(391, 270, 100, 40, "pics/hud/leveldesigner/deleteButton.png", "delete");
-        hudObject fillSelection = new hudObject(391, 310, 100, 40, "pics/hud/leveldesigner/fillButton.png", "fill");
-        hudObject clearSelection = new hudObject(391, 350, 100, 40, "pics/hud/leveldesigner/clearButton.png", "clear");
-
-        hudObject tilesTab = new hudObject(0, 0, 500, 405, "pics/hud/leveldesigner/tilesTab.png", "");
-
-        hudObjects.add(tilesTab);
-        int ypos = 27;
-
-        for (int rows = 0; rows < tileRows; rows++) {
-            hudObject newRow = new hudObject(11, ypos, 478, 17, "pics/hud/leveldesigner/row0" + ((rows % 2) + 1) + ".png", "row" + rows);
-            hudString rowTileText = new hudString("Tile " + (rows + tileLibOffset), 11, ypos);
-            ypos += 17;
-            hudObjects.add(newRow);
-            hudFonts.add(rowTileText);
-        }
-        Tile temp = new Tile(0, 0);
-        temp.setGraphic("levels/tilepic/tile001.png");
-        godsTile = temp;
-        holeTile = temp;
-        hudObjects.add(buttonBg);
-        hudObjects.add(saveMap);
-        hudObjects.add(newMap);
-        hudObjects.add(clearSelection);
-        hudObjects.add(fillSelection);
-        hudObjects.add(deleteSelection);
 
     }
 
@@ -250,6 +221,37 @@ public class LDPanel extends LevelPanel {
         godsTile.replaceWith(replaceTo);
         tilePreview = new hudObject(180, 270, 160, 100, godsTile.getGraphPath(), "");
         hudObjects.set(tilePrevLoc, tilePreview);
+    }
+
+    private void buildTileCommander() {
+        int tileRows = 12;//how many rows can be displayed at a time
+        int ypos = 27;//starting y position of first row
+        hudObject buttonBg = new hudObject(11, 237, 476, 157, "pics/hud/leveldesigner/buttonBg.png", "");
+        hudObject saveMap = new hudObject(10, 310, 100, 40, "pics/hud/leveldesigner/saveButton.png", "save");
+        hudObject newMap = new hudObject(10, 350, 100, 40, "pics/hud/leveldesigner/newButton.png", "new");
+        hudObject deleteSelection = new hudObject(391, 270, 100, 40, "pics/hud/leveldesigner/deleteButton.png", "delete");
+        hudObject fillSelection = new hudObject(391, 310, 100, 40, "pics/hud/leveldesigner/fillButton.png", "fill");
+        hudObject clearSelection = new hudObject(391, 350, 100, 40, "pics/hud/leveldesigner/clearButton.png", "clear");
+        hudObject tilesTab = new hudObject(0, 0, 500, 405, "pics/hud/leveldesigner/tilesTab.png", "");
+        hudObjects.add(tilesTab);   
+        
+        for (int rows = 0; rows < tileRows; rows++) {
+            hudObject newRow = new hudObject(11, ypos, 478, 17, "pics/hud/leveldesigner/row0" + ((rows % 2) + 1) + ".png", "row" + rows);
+            hudString rowTileText = new hudString("Tile " + (rows + tileLibOffset), 11, ypos);
+            ypos += 17;
+            hudObjects.add(newRow);
+            hudFonts.add(rowTileText);
+        }
+        Tile temp = new Tile(0, 0);
+        temp.setGraphic("levels/tilepic/tile001.png");
+        godsTile = temp;
+        holeTile = temp;
+        hudObjects.add(buttonBg);
+        hudObjects.add(saveMap);
+        hudObjects.add(newMap);
+        hudObjects.add(clearSelection);
+        hudObjects.add(fillSelection);
+        hudObjects.add(deleteSelection);
     }
 
 }

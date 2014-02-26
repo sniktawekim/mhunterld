@@ -101,7 +101,8 @@ public abstract class OnScreenObject {
     public Image getHigh() {
         return h;
     }
-    public Image getHover(){
+
+    public Image getHover() {
         return o;
     }
 
@@ -160,7 +161,8 @@ public abstract class OnScreenObject {
         }
 
     }
-        public void setHoverGraphic(String setto) {
+
+    public void setHoverGraphic(String setto) {
         hoverPath = setto;
         try {
             hoverGraph = new ImageIcon(this.getClass().getResource(setto));
@@ -176,6 +178,7 @@ public abstract class OnScreenObject {
     public String getGraphPath() {
         return graphPath;
     }
+
     public String getHoverPath() {
         return hoverPath;
     }
@@ -240,13 +243,16 @@ public abstract class OnScreenObject {
     public boolean getHighlight() {
         return highlight;
     }
-    private void setHovered(boolean setto){
+
+    private void setHovered(boolean setto) {
         hovered = setto;
     }
-    public boolean getHovered(){
+
+    public boolean getHovered() {
         return hovered;
     }
-    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz,IClick mouse) {
+
+    public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz, IClick mouse) {
         int xpos = getXMin() + xOffset;
         int ypos = getYMin() + yOffset;
         if (isOnScreen(xpos, ypos)) {
@@ -254,23 +260,29 @@ public abstract class OnScreenObject {
             if (highlight) {
                 g.drawImage(getHigh(), xpos, ypos, lulz);
             }
-            if(isWithin(mouse.getX()-xOffset, mouse.getY()-yOffset)){
+            if (calcHoveredStatus(xOffset, yOffset, mouse)) {
                 g.drawImage(getHover(), xpos, ypos, lulz);
                 setHovered(true);
-                if(mouse.getPress()){
-                    setHighlight(true);
-                }
-            } else{
+                calcHighlightStatus(mouse);
+            } else {
                 setHovered(false);
             }
-        } 
+        }
     }
 
     public boolean isOnScreen(int x, int y) {
-        boolean isntRight = x<containerXMax;
-        boolean isntLeft = (x+xsize)>containerXMin;
-        boolean isntBelow = y<containerYMax;
-        boolean isntAbove = (y+ysize)>0;
-        return isntRight&&isntLeft&&isntBelow&&isntAbove;
+        boolean isntRight = x < containerXMax;
+        boolean isntLeft = (x + xsize) > containerXMin;
+        boolean isntBelow = y < containerYMax;
+        boolean isntAbove = (y + ysize) > 0;
+        return isntRight && isntLeft && isntBelow && isntAbove;
+    }
+
+    protected void calcHighlightStatus(IClick mouse) {
+        return;
+    }
+
+    protected boolean calcHoveredStatus(int xOffset, int yOffset, IClick mouse) {
+        return isWithin(mouse.getX() - xOffset, mouse.getY() - yOffset) && !mouse.getPress();
     }
 }
