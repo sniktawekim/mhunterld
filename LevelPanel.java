@@ -80,10 +80,10 @@ public abstract class LevelPanel extends MPanel {
         hudObject upArrow = new hudObject(canvasWidth / 2 - 25, 0, 50, 40, "pics/hud/arrows/uha.png", "uha");
         hudObject downArrow = new hudObject(canvasWidth / 2 - 25, canvasHeight - 40, 50, 40, "pics/hud/arrows/dha.png", "dha");
 
-        hudObjects.add(leftArrow);
-        hudObjects.add(rightArrow);
-        hudObjects.add(upArrow);
-        hudObjects.add(downArrow);
+       // hudObjects.add(leftArrow);
+      //  hudObjects.add(rightArrow);
+       // hudObjects.add(upArrow);
+       // hudObjects.add(downArrow);
     }
 
     protected abstract void handleClickedTile(Tile clicked);
