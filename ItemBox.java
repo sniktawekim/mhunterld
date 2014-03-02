@@ -31,7 +31,7 @@ public class ItemBox extends OnScreenObject{
 
     private ArrayList<String> loadLib() {
         ArrayList<String> loadLib = new ArrayList();
-        File boxFolder = new File("pics/itemBox");
+        File boxFolder = new File(prePath + "pics/itemBox");
         //prePath + 
         File[] boxPics = boxFolder.listFiles();
 
