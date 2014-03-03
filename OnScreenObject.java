@@ -41,15 +41,15 @@ public abstract class OnScreenObject {
     private String hoverPath;
     private boolean hovered = false;
 
-    OnScreenObject(int x, int y, int sizeX, int sizeY, int cxMax, int cxMin, int cyMax, int cyMin) {
+    OnScreenObject(int x, int y, int sizeX, int sizeY) {
         xmin = x;
         ymin = y;
         xsize = sizeX;
         ysize = sizeY;
-        containerXMax = cxMax;
-        containerXMin = cxMin;
-        containerYMax = cyMax;
-        containerYMin = cyMin;
+        containerXMax = MHunterLD.frameWidth;
+        containerXMin = -sizeX;
+        containerYMax = MHunterLD.frameHeight;
+        containerYMin = -sizeY;
 
         //default the object to no movement
         rise = 0;

@@ -7,7 +7,7 @@ public class hudObject extends OnScreenObject{
 
     private String actionName;
     hudObject(int xPos,int yPos,int xSize,int ySize, String imagePath, String aName) {
-        super(xPos,yPos,xSize,ySize,1300,0,800,0);
+        super(xPos,yPos,xSize,ySize);
         actionName = aName;
         setGraphic(imagePath);
     }
