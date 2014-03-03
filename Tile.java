@@ -114,11 +114,15 @@ public class Tile extends OnScreenObject {
 
     protected void setOnTop(OnScreenObject toPlace){
         onTop = toPlace;
+        toPlace.setXMin(xmin);
+        toPlace.setYMin(ymin+ysize - onTop.getYSize());
     }
     public void paint(int xOffset, int yOffset, Graphics g, ImageObserver lulz, IClick mouse){
         super.paint(xOffset, yOffset, g, lulz, mouse);
         if(onTop!=null){
+            if(terrainCost!=0){
             onTop.paint(xOffset, yOffset, g, lulz, mouse);
+            }
         }
     }
 }

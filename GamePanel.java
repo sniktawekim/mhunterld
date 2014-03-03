@@ -10,11 +10,10 @@ public class GamePanel extends LevelPanel {
 
     GamePanel() {
         super();
-        int tnum = 2;
-        
-        ItemBox test = new ItemBox(tiles.get(tnum).getXMin(),tiles.get(tnum).getYMin());
-        tiles.get(tnum).setOnTop(test);
-        tiles.get(tnum).setHighlight(true);
+        for(int i=0;i<6;i++){
+        ItemBox test = new ItemBox(tiles.get(i).getXMin(),tiles.get(5).getYMin());
+        tiles.get(i).setOnTop(test);
+        }
     }
 
     @Override

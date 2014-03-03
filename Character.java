@@ -21,7 +21,9 @@ public class Character extends OnScreenObject {
     private CharModel model;
 
     public Character(CharModel characterModel, int cxMax, int cxMin, int cyMax, int cyMin) {
-        super(0, 0, characterModel.getXSize(),characterModel.getYSize());
+       // int xSize = characterModel.getXSize();
+        //int ySize = characterModel.getYSize();
+        super(0, 0, 0,0);
     }
     
     

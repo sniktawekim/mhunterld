@@ -10,10 +10,16 @@ package mhunterld;
  *
  * @author MWatkins
  */
-public class CharModel extends OnScreenObject{
+public class CharModel{
+String dl;
+String dr;
+String ul;
+String ur;
+    
+    
+public CharModel(){
+    
+}
 
-    public CharModel(int x, int y, int sizeX, int sizeY, int cxMax, int cxMin, int cyMax, int cyMin) {
-        super(0, 0, 50, 100);
-    }
 
 }
