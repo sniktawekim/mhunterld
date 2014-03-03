@@ -10,12 +10,10 @@ package mhunterld;
  *
  * @author MWatkins
  */
-public class Item extends OnScreenObject{
+public class CharModel extends OnScreenObject{
 
-    public Item() {
-        super(0, 0, 100, 100);
-        containerXMin = -100;
-        containerYMin = -100;
+    public CharModel(int x, int y, int sizeX, int sizeY, int cxMax, int cxMin, int cyMax, int cyMin) {
+        super(0, 0, 50, 100);
     }
-    
+
 }

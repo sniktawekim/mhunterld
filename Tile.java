@@ -20,10 +20,13 @@ public class Tile extends OnScreenObject {
     int yLoc;
     int id;
     OnScreenObject onTop = null;
+  
 
     //tile width is 120 and height is 60
     public Tile(int xLocation, int yLocation) {
-        super(xLocation, yLocation, 120, 100, MHunterLD.frameWidth, -120, MHunterLD.frameHeight, -85);
+        super(xLocation, yLocation, 120, 100);
+        containerXMin = -120;
+        containerYMin = -85;
         setGraphic("levels/tilepic/tile001.png");
         setHighGraphic("pics/highlights/tileHighlight.png");
         setHoverGraphic("pics/highlights/tileHover.png");
@@ -98,8 +101,15 @@ public class Tile extends OnScreenObject {
         }
     }
 
-    protected boolean calcHoveredStatus(int xOffset, int yOffset, IClick mouse) {
-        return isWithin(mouse.getX() - xOffset, mouse.getY() - yOffset) && (!mouse.getPress() || MHunterLD.currentCanvas.compareToIgnoreCase("ld") == 0);
+    protected boolean calcHoveredStatus(int xOffset, int yOffset, IClick mouse) {  
+        boolean inThisTile = isWithin(mouse.getX() - xOffset, mouse.getY() - yOffset);
+        if(MHunterLD.currentCanvas.compareToIgnoreCase("ld") == 0){
+            return inThisTile;
+        } else{
+            return (inThisTile && !mouse.getPress()&&terrainCost>0);
+        }
+        
+            
     }
 
     protected void setOnTop(OnScreenObject toPlace){
